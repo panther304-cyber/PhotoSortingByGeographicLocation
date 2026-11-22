@@ -1,0 +1,34 @@
+[project]
+name = "photosorting"
+version = "0.1.0"
+description = "iPhone/Android照片整理工具 - 按拍摄时间和地点自动归类"
+requires-python = ">=3.12"
+dependencies = [
+    "duckdb>=1.4.0",
+    "imageio-ffmpeg>=0.6.0",
+    "pillow>=11.0.0",
+    "pillow-heif>=1.0.0",
+    "rich>=13.0.0",
+]
+
+[project.scripts]
+photosorting = "photosorting.cli:main"
+
+[dependency-groups]
+dev = [
+    "nuitka>=2.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.22,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.nuitka]
+# Nuitka standalone build: produces a single-folder distribution
+# Run: uv run python build_nuitka.py
+#      or: uvx nuitka --standalone --onefile src/photosorting/cli.py
+include-package-data = true
+include-data-dir = [
+    "data/ne_110m",
+    "data/gadm41_CHN.gpkg",
+]
